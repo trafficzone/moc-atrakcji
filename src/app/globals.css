@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-night: #0d0b07;
+  --color-night-soft: #19140c;
+  --color-night-card: #221b10;
+  --color-void: #000000;
+  --color-ink: #f7f1e3;
+  --color-gold: #d4af37;
+  --color-gold-light: #f0d571;
+  --color-gold-dark: #9a7b23;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-night: var(--color-night);
+  --color-night-soft: var(--color-night-soft);
+  --color-night-card: var(--color-night-card);
+  --color-void: var(--color-void);
+  --color-ink: var(--color-ink);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-dark: var(--color-gold-dark);
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.gradient-cta {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 55%,
+    var(--color-gold-dark) 100%
+  );
+}
+
+.gradient-text {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
