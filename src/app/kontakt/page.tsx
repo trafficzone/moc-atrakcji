@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Skontaktuj się z Moc Atrakcji — działamy na terenie całego Pomorza. Zadzwoń, napisz lub wypełnij formularz, a odpiszemy w ciągu 24 godzin z bezpłatną wyceną.",
   alternates: {
-    canonical: "https://mocatrakcji.pl/kontakt",
+    canonical: "https://mocatrakcji.com/kontakt",
   },
 };
 

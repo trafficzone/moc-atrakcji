@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Praktyczne poradniki o atrakcjach weselnych: efekty pirotechniczne, fotobudki, organizacja wesela na Pomorzu i bezpieczeństwo pokazów.",
   alternates: {
-    canonical: "https://mocatrakcji.pl/blog",
+    canonical: "https://mocatrakcji.com/blog",
   },
 };
 

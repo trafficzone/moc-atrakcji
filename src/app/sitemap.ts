@@ -2,8 +2,10 @@ import type { MetadataRoute } from "next";
 import { offerItems } from "@/lib/offer";
 import { blogPosts } from "@/lib/blog";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://mocatrakcji.pl";
+  const baseUrl = "https://mocatrakcji.com";
 
   const offerUrls: MetadataRoute.Sitemap = offerItems.map((item) => ({
     url: `${baseUrl}/oferta/${item.slug}`,
