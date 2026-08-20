@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import { CheckIcon, PhoneIcon, TagIcon } from "@/components/Icons";
 import Reveal from "@/components/Reveal";
 import {
   categories,
@@ -45,9 +46,10 @@ export default async function OfferDetailPage({ params }: Props) {
   if (!item) notFound();
 
   const category = categories.find((c) => c.slug === item.category);
-  const relatedItems = getItemsByCategory(item.category).filter(
-    (i) => i.slug !== item.slug
-  );
+  const relatedItems = getItemsByCategory(item.category)
+    .filter((i) => i.slug !== item.slug)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
   const [introText, secondaryText, closingText] = item.longDescription;
   const secondaryImage = item.secondaryImage ?? item.image;
   const isVideo = (src: string) => /\.(mov|mp4|webm)$/i.test(src);
@@ -73,9 +75,6 @@ export default async function OfferDetailPage({ params }: Props) {
             <div className="mt-8 grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
               <Reveal>
                 <h1 className="font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
-                  <span aria-hidden className="mr-2">
-                    {item.emoji}
-                  </span>
                   {item.title}
                 </h1>
                 <p className="gradient-text mt-5 font-display text-xl font-semibold italic sm:text-2xl">
@@ -93,10 +92,28 @@ export default async function OfferDetailPage({ params }: Props) {
                   </a>
                   <a
                     href="tel:+48690945898"
-                    className="rounded-full border border-white/15 px-7 py-3.5 text-center text-sm font-semibold text-ink/85 transition hover:border-gold-dark/50 hover:text-gold-light"
+                    className="flex items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-center text-sm font-semibold text-ink/85 transition hover:border-gold-dark/50 hover:text-gold-light"
                   >
-                    📞 690 945 898
+                    <PhoneIcon className="h-4 w-4" />
+                    690 945 898
                   </a>
+                </div>
+
+                <div className="mt-6 inline-flex items-center gap-4 rounded-2xl border border-gold/25 bg-night-card px-6 py-4">
+                  <span
+                    aria-hidden
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/15"
+                  >
+                    <TagIcon className="h-4 w-4 text-gold-light" />
+                  </span>
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold-light">
+                      Cena
+                    </p>
+                    <p className="font-display text-xl font-bold text-ink">
+                      {formatPriceBadge(item.price)}
+                    </p>
+                  </div>
                 </div>
               </Reveal>
 
@@ -115,8 +132,10 @@ export default async function OfferDetailPage({ params }: Props) {
                     className="object-cover"
                   />
                 </div>
-                <div className="gradient-cta absolute -bottom-5 -left-5 flex h-20 w-20 items-center justify-center rounded-2xl text-3xl shadow-xl">
-                  {item.emoji}
+                <div className="absolute -bottom-5 -left-5 flex h-20 w-20 items-center justify-center rounded-2xl border border-gold/40 bg-night-card shadow-xl">
+                  <span className="font-display text-2xl italic text-gold-light">
+                    {item.title.charAt(0)}
+                  </span>
                 </div>
               </Reveal>
             </div>
@@ -231,37 +250,6 @@ export default async function OfferDetailPage({ params }: Props) {
           </section>
         )}
 
-        {/* Pricing */}
-        <section className="bg-night py-20">
-          <Reveal className="mx-auto max-w-xl px-6 text-center lg:px-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-light">
-              Cennik
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-ink sm:text-4xl">
-              {item.price.tiers ? "Ceny" : formatPriceBadge(item.price)}
-            </h2>
-            {item.price.tiers && (
-              <ul className="mx-auto mt-8 flex max-w-sm flex-col gap-3 text-left">
-                {item.price.tiers.map((tier) => (
-                  <li
-                    key={tier.label}
-                    className="flex items-center justify-between rounded-xl border border-white/10 bg-night-card px-5 py-3"
-                  >
-                    <span className="text-sm text-ink/80">{tier.label}</span>
-                    <span className="font-display text-lg font-bold text-gold-light">
-                      {tier.price} zł
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {item.price.note &&
-              (item.price.tiers || typeof item.price.from === "number") && (
-                <p className="mt-4 text-sm text-ink/60">{item.price.note}</p>
-              )}
-          </Reveal>
-        </section>
-
         {/* Remaining offer details — simple, unsectioned */}
         <section className="bg-night-soft py-20">
           <Reveal className="mx-auto max-w-3xl px-6 text-center lg:px-8">
@@ -279,9 +267,7 @@ export default async function OfferDetailPage({ params }: Props) {
                   key={highlight}
                   className="flex items-start gap-2 text-sm text-ink/80"
                 >
-                  <span aria-hidden className="mt-0.5 text-gold-light">
-                    ✓
-                  </span>
+                  <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold-light" />
                   {highlight}
                 </li>
               ))}
@@ -318,8 +304,7 @@ export default async function OfferDetailPage({ params }: Props) {
                         />
                       </div>
                       <div className="p-6">
-                        <h3 className="flex items-center gap-2 font-display text-lg font-bold text-ink">
-                          <span aria-hidden>{related.emoji}</span>
+                        <h3 className="font-display text-lg font-bold text-ink">
                           {related.title}
                         </h3>
                         <p className="mt-2 text-sm text-ink/70">

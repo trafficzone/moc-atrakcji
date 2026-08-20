@@ -239,6 +239,197 @@ export const blogPosts: BlogPost[] = [
     ],
     relatedOfferSlugs: ["fontanny-iskier-do-reki", "fontanny-iskier", "fontanna-stojaca-2m"],
   },
+  {
+    slug: "dekoracje-weselne-jak-dobrac-styl-i-kolorystyke",
+    title: "Dekoracje weselne — jak dobrać styl i kolorystykę sali",
+    excerpt:
+      "Od stołu prezydialnego po strefę plenerową — podpowiadamy, jak zaplanować spójne dekoracje wesela i dopasować je do efektów specjalnych.",
+    date: "2026-03-16",
+    readTime: "6 min czytania",
+    image:
+      "https://images.unsplash.com/photo-1530023367847-a683933f4172?auto=format&fit=crop&w=1200&q=80",
+    sections: [
+      {
+        paragraphs: [
+          "Dekoracje to element, który najbardziej wpływa na to, jak goście zapamiętają charakter Waszego wesela — jeszcze zanim zabrzmi pierwsza piosenka czy odpali się pierwsza fontanna iskier. W tym artykule podpowiadamy, jak krok po kroku zaplanować spójną stylistykę sali i strefy plenerowej.",
+        ],
+      },
+      {
+        heading: "Od czego zacząć planowanie dekoracji?",
+        paragraphs: [
+          "Najlepiej zacząć od wyboru 2–3 kolorów przewodnich, które będą się powtarzać w dekoracji stołów, kwiatach, a nawet w kolorystyce efektów pirotechnicznych. Dzięki temu cała oprawa wizualna — od zaproszeń po fontanny iskier — tworzy spójną całość, a nie zbiór przypadkowych elementów.",
+          "Warto też zdecydować wcześnie, czy stawiacie na styl klasyczny, boho, rustykalny czy nowoczesny minimalizm — to ułatwia dobór zarówno kwiatów i tkanin, jak i dodatkowych atrakcji.",
+        ],
+      },
+      {
+        heading: "Stół prezydialny i strefa ceremonii",
+        paragraphs: [
+          "Stół prezydialny i miejsce ceremonii to punkty, na które goście patrzą najczęściej i najdłużej — warto zainwestować w nie najwięcej uwagi. Popularne rozwiązania to łuki kwiatowe, girlandy zieleni czy delikatne oświetlenie punktowe, które dobrze wygląda zarówno w świetle dziennym, jak i wieczorem.",
+        ],
+      },
+      {
+        heading: "Jak połączyć dekoracje z efektami specjalnymi?",
+        paragraphs: [
+          "Jeśli planujecie fontanny iskier, wachlarz czy ciężki dym przy stole prezydialnym lub scenie, warto uwzględnić to już na etapie projektowania dekoracji — zachowując odpowiednie odległości od elementów łatwopalnych i tak dobierając materiały, by komponowały się z pirotechniką, a nie z nią kolidowały.",
+          "Zajmujemy się kompleksową dekoracją wesela i chętnie zaproponujemy stylistykę dopasowaną do wybranych przez Was efektów — wystarczy się z nami skontaktować.",
+        ],
+      },
+    ],
+    relatedOfferSlugs: ["dekoracje", "fontanny-iskier", "ciezki-dym"],
+  },
+  {
+    slug: "jak-wybrac-dj-a-na-wesele",
+    title: "Jak wybrać DJ-a na wesele? 7 pytań, które warto zadać",
+    excerpt:
+      "Repertuar, sprzęt, konferansjerka — sprawdź, o co zapytać DJ-a przed podpisaniem umowy, żeby zabawa trwała do białego rana.",
+    date: "2026-03-25",
+    readTime: "6 min czytania",
+    image:
+      "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80",
+    sections: [
+      {
+        paragraphs: [
+          "DJ to jedna z tych decyzji weselnych, które mają największy wpływ na atmosferę całego wieczoru. Dobry wykonawca wyczuje energię sali i poprowadzi zabawę tak, by parkiet nie pustoszał — słaby dobór muzyki potrafi zepsuć nawet najlepiej zaplanowane przyjęcie. Oto pytania, które warto zadać przed rezerwacją.",
+        ],
+      },
+      {
+        heading: "1. Jak wygląda repertuar i czy można go dopasować?",
+        paragraphs: [
+          "Poproście o przykładową playlistę z ostatnich wesel i zapytajcie, czy DJ jest w stanie dostosować repertuar do Waszych gustów oraz wieku gości — dobry wykonawca płynnie łączy klasyki weselne z aktualnymi hitami, czytając na bieżąco reakcje parkietu.",
+        ],
+      },
+      {
+        heading: "2. Czy DJ prowadzi też konferansjerkę?",
+        paragraphs: [
+          "Część DJ-ów ogranicza się do samej muzyki, inni prowadzą też zabawy integracyjne i zapowiadają kolejne punkty programu. Warto ustalić to wcześniej, żeby uniknąć sytuacji, w której nikt nie prowadzi wieczoru między pierwszym tańcem a tortem.",
+        ],
+      },
+      {
+        heading: "3. Jaki sprzęt zapewnia i czy zna salę?",
+        paragraphs: [
+          "Zapytajcie o nagłośnienie, oświetlenie oraz to, czy DJ miał już wcześniej okazję grać w wybranej przez Was sali — znajomość akustyki i wielkości parkietu pozwala lepiej dobrać moc sprzętu i uniknąć problemów technicznych w dniu wesela.",
+        ],
+      },
+      {
+        heading: "Współpraca z efektami specjalnymi",
+        paragraphs: [
+          "Nasz DJ na bieżąco współpracuje z zespołem obsługującym efekty pirotechniczne, dzięki czemu kluczowe momenty wieczoru — pierwszy taniec, wjazd pary młodej, północ — mogą być zsynchronizowane z muzyką i pokazem iskier w jedną spójną scenę. Skontaktuj się z nami, aby ustalić szczegóły i sprawdzić dostępność terminu.",
+        ],
+      },
+    ],
+    relatedOfferSlugs: ["dj", "ciezki-dym", "fontanny-iskier"],
+  },
+  {
+    slug: "dmuchance-na-wesele-czy-warto",
+    title: "Dmuchańce na wesele — czy warto i jak to zorganizować",
+    excerpt:
+      "Strefa zabaw dla najmłodszych gości weselnych — sprawdź, kiedy warto zamówić dmuchaniec i na co zwrócić uwagę przy jego ustawieniu.",
+    date: "2026-04-03",
+    readTime: "5 min czytania",
+    image:
+      "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=1200&q=80",
+    sections: [
+      {
+        paragraphs: [
+          "Jeśli wśród Waszych gości będzie sporo dzieci, dmuchaniec to jedna z tych atrakcji, które realnie odciążają rodziców i pozwalają im spokojnie cieszyć się przyjęciem. W tym artykule podpowiadamy, kiedy warto ją zamówić i jak dobrze zaplanować jej ustawienie.",
+        ],
+      },
+      {
+        heading: "Dla kogo sprawdza się ta atrakcja?",
+        paragraphs: [
+          "Dmuchaniec najlepiej sprawdza się na weselach plenerowych, gdzie jest dość miejsca na osobną strefę zabaw, oraz na przyjęciach z dużą liczbą dzieci w różnym wieku. Dzięki własnej strefie rozrywki maluchy nie nudzą się podczas dłuższych części oficjalnych, a rodzice mogą spokojnie usiąść przy stole.",
+        ],
+      },
+      {
+        heading: "Gdzie i jak ustawić dmuchaniec?",
+        paragraphs: [
+          "Najlepiej sprawdza się miejsce w pobliżu sali, ale na tyle oddalone, by dźwięk zabawy nie zakłócał części oficjalnej ani wystąpień. Dostarczamy, montujemy i zabezpieczamy atrakcję na miejscu — cały proces, od rozładunku po napompowanie i sprawdzenie mocowań, zajmuje naszej ekipie zwykle około pół godziny.",
+          "Model dobieramy do wielkości dostępnej przestrzeni oraz przewidywanej liczby dzieci — warto podać nam tę informację już na etapie zapytania o wycenę.",
+        ],
+      },
+      {
+        heading: "Czy warto połączyć dmuchaniec z innymi atrakcjami?",
+        paragraphs: [
+          "Tak — na życzenie łączymy dmuchaniec z innymi atrakcjami z naszej oferty, na przykład fotobudką, tworząc kompleksową strefę rozrywki dla gości w każdym wieku. To rozwiązanie szczególnie doceniają rodziny z dziećmi, które w innym wypadku mogłyby się nudzić na dłuższym przyjęciu.",
+        ],
+      },
+    ],
+    relatedOfferSlugs: ["dmuchance", "fotobudka-klasyczna", "fotobudka-360"],
+  },
+  {
+    slug: "wiatraki-iskier-czy-wachlarz-czym-sie-roznia",
+    title: "Wiatraki iskier czy wachlarz? Czym różnią się te efekty pirotechniczne",
+    excerpt:
+      "Wirujące koło czy szeroki snop iskier — porównujemy dwa efektowne, ale zupełnie inne w charakterze pokazy pirotechniczne na wesele.",
+    date: "2026-04-12",
+    readTime: "6 min czytania",
+    image:
+      "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=80",
+    sections: [
+      {
+        paragraphs: [
+          "Wiatraki iskier i wachlarz to dwa efekty, które często mylone są ze sobą przez pary planujące wesele — oba są widowiskowe, oba dobrze wyglądają jako oprawa sceny, ale różnią się charakterem ruchu i tym, do jakiego momentu wieczoru najlepiej pasują.",
+        ],
+      },
+      {
+        heading: "Wiatraki iskier — dynamiczny, wirujący ruch",
+        paragraphs: [
+          "Wiatraki iskier to obracające się koła pirotechniczne, które tworzą efekt hipnotyzującego, świetlistego kręgu. Ich charakterystyczny, dynamiczny ruch świetnie sprawdza się jako element dekoracyjny przy wejściu na salę lub w bramie powitalnej gości — przyciąga wzrok i dobrze wygląda na filmie.",
+        ],
+      },
+      {
+        heading: "Wachlarz — szeroki, statyczny snop iskier",
+        paragraphs: [
+          "Wachlarz tworzy szeroką, symetryczną smugę iskier rozchodzącą się na boki — w przeciwieństwie do wiatraków efekt „otwiera się” poziomo i pozostaje statyczny, tworząc widowiskowe tło o dużej rozpiętości. To rozwiązanie polecamy jako scenografię dla pary młodej, zespołu muzycznego lub stanowiska DJ-a.",
+        ],
+      },
+      {
+        heading: "Które wybrać na swoje wesele?",
+        paragraphs: [
+          "Jeśli zależy Wam na efekcie ruchu i chcecie urozmaicić dłuższy pokaz — sprawdzą się wiatraki iskier. Jeśli szukacie szerokiego, efektownego tła do zdjęć i wideo, np. za stołem prezydialnym — lepszym wyborem będzie wachlarz, ewentualnie jego rozbudowana wersja z dodatkowymi gwiazdami na niebie.",
+          "Oba efekty świetnie się też uzupełniają — wiele par decyduje się na połączenie ich w jednym, rozbudowanym pokazie pirotechnicznym.",
+        ],
+      },
+    ],
+    relatedOfferSlugs: ["wiatraki-iskier", "wystrzal-wachlarz", "wystrzal-wachlarz-gwiazdy"],
+  },
+  {
+    slug: "fotograf-na-wesele-jak-wybrac",
+    title: "Fotograf na wesele — jak wybrać i na co zwrócić uwagę",
+    excerpt:
+      "Portfolio, styl reportażu i doświadczenie z efektami specjalnymi — sprawdź, jak dobrze wybrać fotografa na najważniejszy dzień roku.",
+    date: "2026-04-21",
+    readTime: "7 min czytania",
+    image:
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1200&q=80",
+    sections: [
+      {
+        paragraphs: [
+          "Zdjęcia to jedyna rzecz z wesela, która zostaje z Wami na zawsze — dlatego wybór fotografa warto przemyśleć równie dokładnie, jak wybór sali czy sukni ślubnej. W tym artykule podpowiadamy, na co zwrócić uwagę, przeglądając portfolio i rozmawiając z potencjalnymi wykonawcami.",
+        ],
+      },
+      {
+        heading: "Portfolio i spójność stylu",
+        paragraphs: [
+          "Poproście o pełny reportaż z jednego wesela, a nie tylko wybrane, najlepsze ujęcia z wielu realizacji — to najlepszy sposób, by ocenić, czy styl fotografa (jasny i naturalny, klasyczny czy mocno reżyserowany) pasuje do Waszych oczekiwań i czy potrafi konsekwentnie utrzymać jakość przez cały dzień.",
+        ],
+      },
+      {
+        heading: "Doświadczenie z efektami specjalnymi",
+        paragraphs: [
+          "Jeśli planujecie ciężki dym, fontanny iskier czy pokaz fajerwerków, warto zapytać fotografa, czy ma doświadczenie w fotografowaniu tego typu efektów. Znajomość odpowiednich ustawień aparatu i dystansu do sceny sprawia, że te momenty wychodzą na zdjęciach naprawdę spektakularnie, zamiast wyjść przepalone lub rozmyte.",
+          "Nasi fotografowie na bieżąco współpracują z zespołem pirotechnicznym i dokładnie wiedzą, czego się spodziewać w każdym z naszych efektów — dzięki temu możemy zaproponować gotowy, sprawdzony harmonogram dnia pod kątem najlepszych ujęć.",
+        ],
+      },
+      {
+        heading: "Umowa, pakiety i czas realizacji",
+        paragraphs: [
+          "Przed podpisaniem umowy ustalcie liczbę godzin pracy fotografa, czas oczekiwania na gotowe zdjęcia oraz to, czy w cenie zawarty jest album lub nośnik ze zdjęciami w wersji cyfrowej. Skontaktuj się z nami, aby poznać dostępne pakiety i sprawdzić dostępność terminu.",
+        ],
+      },
+    ],
+    relatedOfferSlugs: ["fotograf", "pokaz-fajerwerkow", "ciezki-dym"],
+  },
 ];
 
 export function getBlogPost(slug: string) {

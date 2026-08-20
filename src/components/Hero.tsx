@@ -2,46 +2,53 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="top" className="relative isolate overflow-hidden bg-night">
-      <Image
-        src="https://images.unsplash.com/photo-1498931299472-f7a63a5a1cfa?auto=format&fit=crop&w=2000&q=80"
-        alt="Kolorowy pokaz fajerwerków nocą"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-night/70 via-night/60 to-night" />
+    <section id="top" className="relative overflow-hidden bg-void">
+      <div className="mx-auto grid max-w-[1800px] grid-cols-1 lg:grid-cols-2">
+        <div className="relative flex flex-col justify-center px-6 py-24 sm:px-12 lg:py-32 lg:px-16">
+          <div className="flex items-center gap-3">
+            <span aria-hidden className="h-px w-8 bg-gold" />
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-light">
+              Eventy, które czuć się długo
+            </p>
+          </div>
 
-      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-28 text-center sm:py-36 lg:py-44">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-light sm:text-sm">
-          Profesjonalne Atrakcje Weselne · Pomorze i Okolice
-        </p>
+          <h1 className="mt-8 font-display text-5xl font-medium leading-[1.05] text-ink sm:text-6xl lg:text-7xl">
+            Dajemy
+            <br />
+            <span className="italic text-gold-light">moc</span>
+            <br />
+            wspomnieniom.
+          </h1>
 
-        <h1 className="mt-6 font-display text-4xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
-          Spraw, by Wasze
-          <br />
-          <span className="gradient-text">Wesele Błyszczało</span>
-        </h1>
+          <p className="mt-8 max-w-md text-base leading-relaxed text-ink/70">
+            Tworzymy atrakcje, które rozkręcają wesela, eventy firmowe i
+            prywatne celebracje.
+          </p>
 
-        <p className="mt-6 max-w-2xl text-base text-white/80 sm:text-lg">
-          Fotobudka, ciężki dym, fontanny iskier i wiele więcej. Przyjeżdżamy,
-          ustawiamy, ogarniamy wszystko na miejscu.
-        </p>
+          <div className="mt-10">
+            <a
+              href="#atrakcje"
+              className="inline-flex items-center gap-2 bg-gold px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-void transition hover:bg-gold-light"
+            >
+              Poznaj ofertę
+              <span aria-hidden>↓</span>
+            </a>
+          </div>
+        </div>
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <a
-            href="#kontakt"
-            className="gradient-cta rounded-full px-8 py-3.5 text-sm font-semibold text-void shadow-lg shadow-gold/30 transition hover:opacity-90"
-          >
-            Zapytaj o termin
-          </a>
-          <a
-            href="#atrakcje"
-            className="rounded-full border border-white/30 bg-white/5 px-8 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
-          >
-            Zobacz atrakcje
-          </a>
+        <div className="relative min-h-[420px] lg:min-h-[720px]">
+          <Image
+            src="/wiatraki-iskier.jpg"
+            alt="Fontanny iskier na weselu Moc Atrakcji"
+            fill
+            priority
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute left-6 right-14 top-8 bottom-20 border border-gold/40 sm:left-10 sm:right-24 sm:top-10 sm:bottom-28"
+          />
         </div>
       </div>
     </section>

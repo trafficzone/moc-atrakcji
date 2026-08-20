@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
+import { MailIcon, PhoneIcon, PinIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Kontakt",
@@ -43,22 +44,20 @@ export default function KontaktPage() {
                 href="tel:+48690945898"
                 className="gradient-cta flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-void shadow-lg shadow-gold/20 transition hover:opacity-90"
               >
-                <span aria-hidden>📞</span>
+                <PhoneIcon className="h-4 w-4" />
                 690 945 898
               </a>
               <a
                 href="mailto:mocatrakcji.pomorksie@gmail.com"
                 className="flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-ink/85 transition hover:border-gold-dark/50 hover:text-gold-light"
               >
-                <span aria-hidden>✉️</span>
+                <MailIcon className="h-4 w-4" />
                 mocatrakcji.pomorksie@gmail.com
               </a>
             </div>
 
             <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-night-card px-5 py-2.5 text-sm text-ink/75">
-              <span aria-hidden className="text-gold-light">
-                📍
-              </span>
+              <PinIcon className="h-4 w-4 shrink-0 text-gold-light" />
               Świadczymy usługi na terenie całego Pomorza — Gdańsk, Gdynia,
               Sopot, Trójmiasto i okoliczne powiaty
             </div>

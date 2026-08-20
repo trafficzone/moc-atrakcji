@@ -174,8 +174,7 @@ export default async function BlogPostPage({ params }: Props) {
                         />
                       </div>
                       <div className="p-5">
-                        <h3 className="flex items-center gap-2 font-display text-base font-bold text-ink">
-                          <span aria-hidden>{item.emoji}</span>
+                        <h3 className="font-display text-base font-bold text-ink">
                           {item.title}
                         </h3>
                       </div>
