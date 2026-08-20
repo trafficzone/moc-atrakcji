@@ -1,5 +1,3 @@
-import { categories } from "@/lib/offer";
-
 export default function Footer() {
   return (
     <footer className="bg-void text-white/70">
@@ -40,20 +38,11 @@ export default function Footer() {
         </div>
 
         <nav className="mt-16 flex flex-wrap gap-x-8 gap-y-2 border-t border-white/10 pt-8 text-xs font-semibold uppercase tracking-[0.15em] text-white/50">
-          {categories.map((category) => (
-            <a
-              key={category.slug}
-              href="/#atrakcje"
-              className="hover:text-gold-light"
-            >
-              {category.title}
-            </a>
-          ))}
+          <a href="/#atrakcje" className="hover:text-gold-light">
+            Oferta
+          </a>
           <a href="/kontakt" className="hover:text-gold-light">
             Kontakt
-          </a>
-          <a href="/blog" className="hover:text-gold-light">
-            Blog
           </a>
         </nav>
 
