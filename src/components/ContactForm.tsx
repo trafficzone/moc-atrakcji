@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Script from "next/script";
 import Reveal from "./Reveal";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -30,22 +31,17 @@ export default function ContactForm() {
     setStatus("submitting");
 
     const formData = new FormData(event.currentTarget);
-    const payload = {
-      name: formData.get("name"),
-      date: formData.get("date"),
-      phone: formData.get("phone"),
-      message: formData.get("message"),
-      interests: selected,
-    };
+    formData.append("interests", selected.join(", "));
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
-      if (!response.ok) throw new Error("Request failed");
+      const result = await response.json();
+      if (!result.success) throw new Error("Request failed");
+
       setStatus("success");
       event.currentTarget.reset();
       setSelected([]);
@@ -72,6 +68,11 @@ export default function ContactForm() {
           onSubmit={handleSubmit}
           className="mt-14 border border-white/10 bg-night-card p-8 text-left sm:p-12"
         >
+          <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_ACCESS_KEY" />
+          <input type="hidden" name="subject" value="Nowe zapytanie ofertowe - Moc Atrakcji" />
+          <input type="hidden" name="from_name" value="Formularz Moc Atrakcji" />
+          <input type="checkbox" name="botcheck" style={{ display: "none" }} />
+
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             <div>
               <label
@@ -166,6 +167,10 @@ export default function ContactForm() {
             />
           </div>
 
+          <div className="mt-6 flex justify-center">
+            <div className="h-captcha" data-captcha="true" />
+          </div>
+
           <button
             type="submit"
             disabled={status === "submitting"}
@@ -187,6 +192,7 @@ export default function ContactForm() {
         </form>
         </Reveal>
       </div>
+      <Script src="https://web3forms.com/client/script.js" strategy="lazyOnload" />
     </section>
   );
 }

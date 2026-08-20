@@ -13,7 +13,7 @@ const inter = Inter({
   subsets: ["latin", "latin-ext"],
 });
 
-const siteUrl = "https://mocatrakcji.pl";
+const siteUrl = "https://mocatrakcji.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

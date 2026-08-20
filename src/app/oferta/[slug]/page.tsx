@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: item.title,
     description: item.shortDescription,
     alternates: {
-      canonical: `https://mocatrakcji.pl/oferta/${item.slug}`,
+      canonical: `https://mocatrakcji.com/oferta/${item.slug}`,
     },
     openGraph: {
       title: `${item.title} | Moc Atrakcji`,
