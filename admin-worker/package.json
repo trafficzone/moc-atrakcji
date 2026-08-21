@@ -1,0 +1,17 @@
+{
+  "name": "moc-atrakcji-admin-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "secret:admin-password": "wrangler secret put ADMIN_PASSWORD",
+    "secret:session-secret": "wrangler secret put SESSION_SECRET",
+    "secret:github-token": "wrangler secret put GITHUB_TOKEN"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250101.0",
+    "typescript": "^5",
+    "wrangler": "^3.90.0"
+  }
+}

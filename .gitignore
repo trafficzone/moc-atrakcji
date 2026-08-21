@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# admin worker (Cloudflare)
+/admin-worker/node_modules
+/admin-worker/.wrangler
+/admin-worker/.dev.vars
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

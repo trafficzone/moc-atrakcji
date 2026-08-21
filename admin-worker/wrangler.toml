@@ -1,0 +1,18 @@
+name = "moc-atrakcji-admin"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# Secrets are NOT set here — never put real values in this file.
+# Set them once with:
+#   wrangler secret put ADMIN_PASSWORD
+#   wrangler secret put SESSION_SECRET
+#   wrangler secret put GITHUB_TOKEN
+#
+# Non-secret config below. Edit ALLOWED_ORIGINS if your domain changes.
+[vars]
+GITHUB_OWNER = "trafficzone"
+GITHUB_REPO = "moc-atrakcji"
+GITHUB_BRANCH = "main"
+OFFERS_PATH = "src/data/offers.json"
+UPLOADS_PATH = "public/uploads"
+ALLOWED_ORIGINS = "https://mocatrakcji.com,http://localhost:3000"
