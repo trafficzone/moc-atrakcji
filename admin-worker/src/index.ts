@@ -1,18 +1,33 @@
 /**
- * Moc Atrakcji — admin proxy worker.
+ * Moc Atrakcji — admin worker.
  *
- * This is the ONLY place that holds the GitHub write token and the admin
- * password. The static site (GitHub Pages) never sees either secret — the
- * hidden admin page in the Next.js app calls this worker over HTTPS, and
- * this worker is the one that talks to the GitHub Contents API to commit
- * changes to src/data/offers.json and to public/uploads/*.
+ * This worker does two things:
+ *  1. Serves the admin panel itself (a small, dependency-free HTML+JS page,
+ *     see adminPage.ts) directly at its own workers.dev URL.
+ *  2. Acts as the only place that holds the GitHub write token and the
+ *     admin password, talking to the GitHub Contents API to commit changes
+ *     to src/data/offers.json and public/uploads/* in the public site repo.
+ *
+ * Deliberately NOT part of the public Next.js site repo: that repo is
+ * public, so anything committed there (including a "hidden" route name)
+ * is visible to anyone browsing it on GitHub. Serving the panel from here
+ * instead means its only public exposure is this generic worker source —
+ * the actual deployed URL depends on your Cloudflare account's own
+ * workers.dev subdomain, which is never stored in any repo.
+ *
+ * Since the page and the API below are served from the same origin, no
+ * CORS handling is needed (or wanted — it would only widen the attack
+ * surface for no benefit).
  *
  * Endpoints:
- *   POST /login    { password }                         -> { token, expiresAt }
- *   GET  /offers    (Authorization: Bearer <token>)       -> { offers }
- *   PUT  /offers    (Authorization: Bearer <token>)       body: { offers }
- *   POST /upload    (Authorization: Bearer <token>)       body: { filename, contentType, contentBase64 }
+ *   GET  /            -> the admin panel (HTML)
+ *   POST /login        { password }                    -> { token, expiresAt }
+ *   GET  /offers        (Authorization: Bearer <token>)  -> { offers }
+ *   PUT  /offers        (Authorization: Bearer <token>)  body: { offers }
+ *   POST /upload        (Authorization: Bearer <token>)  body: { filename, contentType, contentBase64 }
  */
+
+import { ADMIN_HTML } from "./adminPage";
 
 export interface Env {
   ADMIN_PASSWORD: string;
@@ -23,7 +38,6 @@ export interface Env {
   GITHUB_BRANCH: string;
   OFFERS_PATH: string;
   UPLOADS_PATH: string;
-  ALLOWED_ORIGINS: string;
 }
 
 const TOKEN_TTL_SECONDS = 60 * 60 * 4; // 4 hours
@@ -36,24 +50,30 @@ const ALLOWED_IMAGE_TYPES = new Set([
   "image/gif",
 ]);
 
-function corsHeaders(origin: string | null, env: Env): HeadersInit {
-  const allowed = env.ALLOWED_ORIGINS.split(",").map((o) => o.trim());
-  const allowOrigin = origin && allowed.includes(origin) ? origin : allowed[0];
-  return {
-    "Access-Control-Allow-Origin": allowOrigin,
-    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    "Access-Control-Max-Age": "86400",
-    Vary: "Origin",
-  };
-}
+const SECURITY_HEADERS: HeadersInit = {
+  "X-Frame-Options": "DENY",
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "no-referrer",
+  "Cache-Control": "no-store",
+};
 
-function json(data: unknown, init: ResponseInit = {}, cors: HeadersInit = {}) {
+function json(data: unknown, init: ResponseInit = {}) {
   return new Response(JSON.stringify(data), {
     ...init,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      ...cors,
+      ...SECURITY_HEADERS,
+      ...(init.headers ?? {}),
+    },
+  });
+}
+
+function html(body: string, init: ResponseInit = {}) {
+  return new Response(body, {
+    ...init,
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      ...SECURITY_HEADERS,
       ...(init.headers ?? {}),
     },
   });
@@ -194,46 +214,44 @@ function sanitizeFilename(name: string): string {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const origin = request.headers.get("Origin");
-    const cors = corsHeaders(origin, env);
     const url = new URL(request.url);
 
-    if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: cors });
+    if (url.pathname === "/" && request.method === "GET") {
+      return html(ADMIN_HTML);
     }
 
     try {
       if (url.pathname === "/login" && request.method === "POST") {
         const body = (await request.json().catch(() => ({}))) as { password?: string };
         if (!body.password || body.password !== env.ADMIN_PASSWORD) {
-          return json({ error: "invalid_password" }, { status: 401 }, cors);
+          return json({ error: "invalid_password" }, { status: 401 });
         }
         const { token, expiresAt } = await createToken(env);
-        return json({ token, expiresAt }, { status: 200 }, cors);
+        return json({ token, expiresAt }, { status: 200 });
       }
 
       // Everything below requires a valid session token.
       const token = getBearerToken(request);
       const authed = await verifyToken(token, env);
       if (!authed) {
-        return json({ error: "unauthorized" }, { status: 401 }, cors);
+        return json({ error: "unauthorized" }, { status: 401 });
       }
 
       if (url.pathname === "/offers" && request.method === "GET") {
         const file = await getFile(env, env.OFFERS_PATH);
-        if (!file) return json({ error: "not_found" }, { status: 404 }, cors);
+        if (!file) return json({ error: "not_found" }, { status: 404 });
         const offers = JSON.parse(base64ToUtf8(file.content));
-        return json({ offers }, { status: 200 }, cors);
+        return json({ offers }, { status: 200 });
       }
 
       if (url.pathname === "/offers" && request.method === "PUT") {
         const body = (await request.json().catch(() => null)) as { offers?: unknown } | null;
         if (!body || !Array.isArray(body.offers)) {
-          return json({ error: "invalid_body" }, { status: 400 }, cors);
+          return json({ error: "invalid_body" }, { status: 400 });
         }
         const serialized = JSON.stringify(body.offers, null, 2) + "\n";
         if (new TextEncoder().encode(serialized).length > MAX_OFFERS_JSON_BYTES) {
-          return json({ error: "payload_too_large" }, { status: 413 }, cors);
+          return json({ error: "payload_too_large" }, { status: 413 });
         }
         const current = await getFile(env, env.OFFERS_PATH);
         await putFile(
@@ -243,7 +261,7 @@ export default {
           "chore(admin): update offers via admin panel",
           current?.sha
         );
-        return json({ ok: true }, { status: 200 }, cors);
+        return json({ ok: true }, { status: 200 });
       }
 
       if (url.pathname === "/upload" && request.method === "POST") {
@@ -253,14 +271,14 @@ export default {
           contentBase64?: string;
         } | null;
         if (!body?.filename || !body.contentType || !body.contentBase64) {
-          return json({ error: "invalid_body" }, { status: 400 }, cors);
+          return json({ error: "invalid_body" }, { status: 400 });
         }
         if (!ALLOWED_IMAGE_TYPES.has(body.contentType)) {
-          return json({ error: "unsupported_type" }, { status: 415 }, cors);
+          return json({ error: "unsupported_type" }, { status: 415 });
         }
         const approxBytes = Math.floor((body.contentBase64.length * 3) / 4);
         if (approxBytes > MAX_IMAGE_BYTES) {
-          return json({ error: "payload_too_large" }, { status: 413 }, cors);
+          return json({ error: "payload_too_large" }, { status: 413 });
         }
         const safeName = sanitizeFilename(body.filename);
         const path = `${env.UPLOADS_PATH}/${safeName}`;
@@ -270,15 +288,14 @@ export default {
           body.contentBase64,
           `chore(admin): upload image ${safeName}`
         );
-        return json({ path: `/uploads/${safeName}` }, { status: 200 }, cors);
+        return json({ path: `/uploads/${safeName}` }, { status: 200 });
       }
 
-      return json({ error: "not_found" }, { status: 404 }, cors);
+      return json({ error: "not_found" }, { status: 404 });
     } catch (err) {
       return json(
         { error: "internal_error", detail: String(err) },
-        { status: 500 },
-        cors
+        { status: 500 }
       );
     }
   },

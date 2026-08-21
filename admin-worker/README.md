@@ -1,12 +1,20 @@
-# Panel admina — worker (backend)
+# Panel admina — worker (backend + panel w jednym)
 
-Ten folder to osobny, mały serwer (Cloudflare Worker), który stoi między
-ukrytą stroną admina a repo na GitHubie. To jedyne miejsce, które zna hasło
-admina i token GitHuba z prawem zapisu — panel admina (strona statyczna) nigdy
-ich nie widzi.
+Ten folder to osobny, mały serwer (Cloudflare Worker). Robi dwie rzeczy:
 
-Trzeba to wdrożyć **raz**, ręcznie, z własnego konta Cloudflare (darmowy plan
-w zupełności wystarczy). Poniżej krok po kroku.
+1. **Serwuje sam panel** (stronę logowania i edycji ofert) pod swoim
+   własnym adresem `*.workers.dev` — panel **celowo nie jest częścią**
+   głównego repo strony (`src/app/...`). Repo `trafficzone/moc-atrakcji`
+   jest **publiczne**, więc każda "ukryta" ścieżka umieszczona tam byłaby
+   natychmiast widoczna dla każdego przeglądającego kod na GitHubie —
+   losowa nazwa folderu nic by nie dała. Adres workera (`https://moc-atrakcji-admin.<twoja-subdomena>.workers.dev`)
+   zależy od nazwy subdomeny Twojego konta Cloudflare, która nigdzie w
+   repo nie jest zapisana.
+2. **Trzyma sekrety** — hasło admina i token GitHuba z prawem zapisu.
+   Panel (przeglądarka) nigdy ich nie widzi; to jedyne miejsce, które je zna.
+
+Trzeba to wdrożyć **raz**, ręcznie, z własnego konta Cloudflare (darmowy
+plan w zupełności wystarczy). Poniżej krok po kroku.
 
 ## 1. Zainstaluj zależności
 
@@ -41,7 +49,7 @@ npm run secret:admin-password
 # wpisz hasło do panelu admina (dla Ciebie/osoby edytującej oferty)
 
 npm run secret:session-secret
-# wpisz dowolny losowy, długi ciąg znaków (np. wygenerowany hasłem menadżera)
+# wpisz dowolny losowy, długi ciąg znaków (np. wygenerowany menadżerem haseł)
 
 npm run secret:github-token
 # wklej token z kroku 3
@@ -59,30 +67,32 @@ Na koniec wrangler wypisze adres URL workera, coś w stylu:
 https://moc-atrakcji-admin.<twoja-subdomena>.workers.dev
 ```
 
-Skopiuj ten adres.
-
-## 6. Podepnij adres workera do panelu admina
-
-W pliku `src/app/panel-768c916f8af9/AdminPanelClient.tsx` w głównym repo
-(nie w tym folderze) podmień wartość stałej `API_BASE` na skopiowany adres,
-np.:
-
-```ts
-const API_BASE = "https://moc-atrakcji-admin.twoja-subdomena.workers.dev";
-```
-
-Zacommituj i wypchnij zmianę — strona się przebuduje i panel będzie gotowy.
+**To jest adres panelu admina.** Wejdź na niego bezpośrednio w przeglądarce
+— zobaczysz ekran logowania. Zapisz go sobie w menadżerze haseł, obok
+hasła do panelu — nigdzie indziej nie jest ani nie będzie opublikowany.
 
 ## Jak to działa dalej
 
-- Panel admina loguje się hasłem → worker sprawdza je i wystawia
-  krótkotrwały (4h) podpisany token sesji.
+- Wchodzisz na adres workera → logujesz się hasłem → dostajesz
+  krótkotrwały (4h) podpisany token sesji trzymany w przeglądarce.
 - Każda zmiana w panelu (edycja oferty, dodanie nowej, wgranie zdjęcia)
-  trafia do workera, a worker sam robi commit do repo `trafficzone/moc-atrakcji`
-  (do `src/data/offers.json` lub `public/uploads/...`).
+  trafia do tego samego workera, a on sam robi commit do repo
+  `trafficzone/moc-atrakcji` (do `src/data/offers.json` lub
+  `public/uploads/...`).
 - Commit do `main` automatycznie odpala już istniejący workflow
   (`.github/workflows/deploy.yml`), który buduje stronę i publikuje ją na
   GitHub Pages — zmiana pojawia się na żywo po ok. 1–2 minutach.
+
+## Bezpieczeństwo — co warto wiedzieć
+
+- Prawdziwą ochroną jest **hasło + token sesji**, nie sama "tajność" adresu
+  workera. Traktuj hasło jak każde inne ważne hasło.
+- Token GitHuba ma dostęp **tylko** do zapisu plików w tym jednym repo
+  (dzięki fine-grained scoping z kroku 3) — nawet gdyby ktoś przejął
+  workera, nie dostanie się nigdzie indziej na Twoim koncie GitHub.
+- Strona panelu ustawia `Referrer-Policy: no-referrer`, więc jej adres nie
+  wycieka do zewnętrznych serwisów (np. przy wyświetlaniu podglądów zdjęć
+  z Unsplasha).
 
 ## Jeśli kiedyś trzeba zmienić hasło albo unieważnić wszystkie sesje
 
