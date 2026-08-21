@@ -45,6 +45,9 @@ swojego głównego, ogólnego tokena GitHuba.
 ## 4. Ustaw sekrety workera
 
 ```bash
+npm run secret:admin-username
+# wpisz login do panelu admina
+
 npm run secret:admin-password
 # wpisz hasło do panelu admina (dla Ciebie/osoby edytującej oferty)
 
@@ -97,6 +100,7 @@ hasła do panelu — nigdzie indziej nie jest ani nie będzie opublikowany.
 ## Jeśli kiedyś trzeba zmienić hasło albo unieważnić wszystkie sesje
 
 ```bash
+npm run secret:admin-username   # nowy login (opcjonalnie)
 npm run secret:admin-password   # nowe hasło
 npm run secret:session-secret   # nowy sekret — unieważnia od razu wszystkie wydane tokeny
 npm run deploy

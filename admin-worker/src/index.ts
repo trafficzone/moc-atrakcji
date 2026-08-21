@@ -21,7 +21,7 @@
  *
  * Endpoints:
  *   GET  /            -> the admin panel (HTML)
- *   POST /login        { password }                    -> { token, expiresAt }
+ *   POST /login        { username, password }            -> { token, expiresAt }
  *   GET  /offers        (Authorization: Bearer <token>)  -> { offers }
  *   PUT  /offers        (Authorization: Bearer <token>)  body: { offers }
  *   POST /upload        (Authorization: Bearer <token>)  body: { filename, contentType, contentBase64 }
@@ -30,6 +30,7 @@
 import { ADMIN_HTML } from "./adminPage";
 
 export interface Env {
+  ADMIN_USERNAME: string;
   ADMIN_PASSWORD: string;
   SESSION_SECRET: string;
   GITHUB_TOKEN: string;
@@ -222,9 +223,14 @@ export default {
 
     try {
       if (url.pathname === "/login" && request.method === "POST") {
-        const body = (await request.json().catch(() => ({}))) as { password?: string };
-        if (!body.password || body.password !== env.ADMIN_PASSWORD) {
-          return json({ error: "invalid_password" }, { status: 401 });
+        const body = (await request.json().catch(() => ({}))) as {
+          username?: string;
+          password?: string;
+        };
+        const validUsername = body.username === env.ADMIN_USERNAME;
+        const validPassword = !!body.password && body.password === env.ADMIN_PASSWORD;
+        if (!validUsername || !validPassword) {
+          return json({ error: "invalid_credentials" }, { status: 401 });
         }
         const { token, expiresAt } = await createToken(env);
         return json({ token, expiresAt }, { status: 200 });

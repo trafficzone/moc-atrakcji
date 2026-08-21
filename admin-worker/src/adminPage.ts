@@ -159,17 +159,17 @@ export const ADMIN_HTML = `<!doctype html>
     render();
   }
 
-  async function handleLogin(password) {
+  async function handleLogin(username, password) {
     state.status = { kind: "saving" };
     render();
     try {
       var res = await fetch("/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: password }),
+        body: JSON.stringify({ username: username, password: password }),
       });
       if (!res.ok) {
-        state.status = { kind: "error", message: "Błędne hasło." };
+        state.status = { kind: "error", message: "Błędny login lub hasło." };
         render();
         return;
       }
@@ -336,17 +336,26 @@ export const ADMIN_HTML = `<!doctype html>
       renderTopbar(false) +
       '<div class="card login-card">' +
       "<h1>Panel administracyjny</h1>" +
+      '<label class="field-label">Login</label>' +
+      '<input type="text" id="usernameInput" autofocus autocomplete="username" />' +
       '<label class="field-label">Hasło</label>' +
-      '<input type="password" id="passwordInput" autofocus />' +
+      '<input type="password" id="passwordInput" autocomplete="current-password" />' +
       '<button class="btn-gold" id="loginBtn" style="margin-top:24px;width:100%;">Zaloguj</button>' +
       renderStatus() +
       "</div>";
 
-    document.getElementById("loginBtn").onclick = function () {
-      handleLogin(document.getElementById("passwordInput").value);
+    function submit() {
+      handleLogin(
+        document.getElementById("usernameInput").value,
+        document.getElementById("passwordInput").value
+      );
+    }
+    document.getElementById("loginBtn").onclick = submit;
+    document.getElementById("usernameInput").onkeydown = function (e) {
+      if (e.key === "Enter") submit();
     };
     document.getElementById("passwordInput").onkeydown = function (e) {
-      if (e.key === "Enter") handleLogin(this.value);
+      if (e.key === "Enter") submit();
     };
   }
 

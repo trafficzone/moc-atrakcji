@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "secret:admin-username": "wrangler secret put ADMIN_USERNAME",
     "secret:admin-password": "wrangler secret put ADMIN_PASSWORD",
     "secret:session-secret": "wrangler secret put SESSION_SECRET",
     "secret:github-token": "wrangler secret put GITHUB_TOKEN"
