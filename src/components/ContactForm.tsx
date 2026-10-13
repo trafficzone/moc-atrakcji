@@ -95,7 +95,7 @@ export default function ContactForm() {
                 htmlFor="date"
                 className="text-xs font-semibold uppercase tracking-[0.15em] text-ink/60"
               >
-                Data wesela *
+                Data wydarzenia *
               </label>
               <input
                 id="date"

@@ -13,6 +13,9 @@ export const ADMIN_HTML = `<!doctype html>
 <meta name="referrer" content="no-referrer" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Panel — Moc Atrakcji</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --night: #0d0b07;
@@ -22,66 +25,107 @@ export const ADMIN_HTML = `<!doctype html>
     --ink: #f7f1e3;
     --gold: #d4af37;
     --gold-light: #f0d571;
+    --gold-dark: #9a7b23;
+    --border: rgba(255,255,255,0.1);
+    --border-hover: rgba(212,175,55,0.5);
   }
   * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
   body {
     margin: 0;
     background: var(--night);
     color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
   }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 40px 24px 80px; }
-  .eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold-light); }
-  h1, h2 { font-weight: 500; margin: 0; }
-  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
-  .logout { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(247,241,227,0.5); background: none; border: none; cursor: pointer; }
+  .font-display { font-family: "Playfair Display", Georgia, serif; }
+  .glow {
+    position: fixed; top: -260px; left: 50%; transform: translateX(-50%);
+    width: 640px; height: 640px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,175,55,0.16) 0%, rgba(212,175,55,0) 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .wrap { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; padding: 40px 24px 100px; }
+  .eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.22em; color: var(--gold-light); }
+  h1, h2, h3 { font-weight: 500; margin: 0; }
+  h1 { font-family: "Playfair Display", Georgia, serif; }
+  h2 { font-family: "Playfair Display", Georgia, serif; font-size: 24px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 30px; height: 30px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--gold); color: var(--gold); font-family: "Playfair Display", serif; font-weight: 700; font-size: 14px;
+  }
+  .brand-text { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(247,241,227,0.55); }
+  .brand-text b { color: var(--ink); font-weight: 600; }
+  .logout { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(247,241,227,0.5); background: none; border: none; cursor: pointer; transition: color 0.15s; }
   .logout:hover { color: var(--gold-light); }
-  .card { border: 1px solid rgba(255,255,255,0.1); background: var(--night-card); padding: 24px; }
-  .login-card { max-width: 360px; margin: 80px auto 0; padding: 32px; }
-  label.field-label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(247,241,227,0.6); margin-top: 22px; }
+  .card { border: 1px solid var(--border); background: var(--night-card); padding: 32px; box-shadow: 0 24px 48px -24px rgba(0,0,0,0.5); }
+  .login-card { max-width: 380px; margin: 64px auto 0; padding: 40px; text-align: center; }
+  .login-card h1 { font-size: 26px; }
+  .login-card .eyebrow { display: block; margin-bottom: 10px; }
+  .login-card label.field-label { text-align: left; }
+  label.field-label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(247,241,227,0.55); margin-top: 22px; margin-bottom: 0; }
   input, select, textarea {
-    width: 100%; margin-top: 8px; border: 1px solid rgba(255,255,255,0.15);
-    background: var(--night); color: var(--ink); padding: 10px 14px; font-size: 14px;
-    font-family: inherit;
+    width: 100%; margin-top: 9px; border: 1px solid var(--border);
+    background: var(--night); color: var(--ink); padding: 11px 14px; font-size: 14px;
+    font-family: inherit; transition: border-color 0.15s;
   }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+  input::placeholder, textarea::placeholder { color: rgba(247,241,227,0.3); }
   textarea { resize: vertical; }
-  button { font-family: inherit; cursor: pointer; }
-  .btn-gold { background: var(--gold); border: none; color: var(--void); padding: 12px 24px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; }
-  .btn-gold:hover { background: var(--gold-light); }
-  .btn-gold:disabled { opacity: 0.6; cursor: default; }
-  .btn-outline { background: none; border: 1px solid rgba(255,255,255,0.15); color: rgba(247,241,227,0.8); padding: 10px 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; }
-  .btn-outline:hover { border-color: rgba(212,175,55,0.5); color: var(--gold-light); }
-  .btn-danger { background: none; border: 1px solid rgba(239,68,68,0.3); color: #f87171; padding: 6px 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
-  .btn-danger:hover { background: rgba(239,68,68,0.1); }
-  .btn-small { border: 1px solid rgba(255,255,255,0.15); color: rgba(247,241,227,0.7); background: none; padding: 6px 10px; font-size: 12px; }
-  .btn-small:hover { border-color: rgba(212,175,55,0.5); color: var(--gold-light); }
-  .list-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-  .list-row:first-child { border-top: 1px solid rgba(255,255,255,0.1); }
-  .list-title { font-weight: 500; }
-  .list-meta { font-size: 12px; color: rgba(247,241,227,0.5); }
+  select { cursor: pointer; }
+  button { font-family: inherit; cursor: pointer; transition: all 0.15s ease; }
+  .btn-gold {
+    background: linear-gradient(100deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dark) 100%);
+    border: none; color: var(--void); padding: 13px 28px; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.2em;
+  }
+  .btn-gold:hover { opacity: 0.9; }
+  .btn-gold:disabled { opacity: 0.5; cursor: default; }
+  .btn-outline { background: none; border: 1px solid var(--border); color: rgba(247,241,227,0.8); padding: 11px 22px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; }
+  .btn-outline:hover { border-color: var(--border-hover); color: var(--gold-light); }
+  .btn-danger { background: none; border: 1px solid rgba(239,68,68,0.3); color: #f87171; padding: 7px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+  .btn-danger:hover { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.5); }
+  .btn-small { border: 1px solid var(--border); color: rgba(247,241,227,0.7); background: none; padding: 7px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .btn-small:hover { border-color: var(--border-hover); color: var(--gold-light); }
+  .list-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 4px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .list-row:hover { background: rgba(255,255,255,0.02); }
+  .list-row:first-child { border-top: 1px solid var(--border); }
+  .list-main { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .list-title { font-weight: 600; font-size: 15px; }
+  .list-meta { font-size: 12px; color: rgba(247,241,227,0.45); margin-top: 3px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 9px; border: 1px solid var(--border-hover); color: var(--gold-light); white-space: nowrap; flex-shrink: 0; }
+  .price-tag { font-size: 12px; color: rgba(247,241,227,0.6); white-space: nowrap; flex-shrink: 0; }
   .row-actions { display: flex; gap: 8px; flex-shrink: 0; }
-  .status { border: 1px solid rgba(212,175,55,0.4); color: var(--gold-light); padding: 12px 16px; font-size: 14px; margin-bottom: 24px; }
-  .status.error { border-color: rgba(239,68,68,0.4); color: #f87171; }
+  .status { border: 1px solid rgba(212,175,55,0.4); background: rgba(212,175,55,0.06); color: var(--gold-light); padding: 14px 18px; font-size: 14px; margin-bottom: 28px; }
+  .status.error { border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.06); color: #f87171; }
   .list-item-row { display: flex; align-items: flex-start; gap: 8px; margin-top: 12px; }
   .list-item-row textarea, .list-item-row input { margin-top: 0; }
-  .link-btn { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-light); background: none; border: none; cursor: pointer; margin-top: 12px; padding: 0; }
+  .link-btn { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-light); background: none; border: none; cursor: pointer; margin-top: 14px; padding: 0; }
   .link-btn:hover { text-decoration: underline; }
-  .image-field { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-  .image-field img { height: 56px; width: 56px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0; }
+  .image-field { display: flex; align-items: center; gap: 10px; margin-top: 9px; }
+  .image-field img { height: 56px; width: 56px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; background: var(--night); }
   .image-field input { margin-top: 0; }
-  .upload-label { flex-shrink: 0; cursor: pointer; border: 1px solid rgba(255,255,255,0.15); padding: 10px 14px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(247,241,227,0.7); }
-  .upload-label:hover { border-color: rgba(212,175,55,0.5); color: var(--gold-light); }
-  .price-box { border: 1px solid rgba(255,255,255,0.1); padding: 16px; margin-top: 8px; }
-  .price-box .field-label { margin-top: 16px; font-weight: 400; text-transform: none; letter-spacing: normal; font-size: 13px; }
+  .upload-label { flex-shrink: 0; cursor: pointer; border: 1px solid var(--border); padding: 11px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(247,241,227,0.7); transition: all 0.15s; }
+  .upload-label:hover { border-color: var(--border-hover); color: var(--gold-light); }
+  .price-box { border: 1px solid var(--border); background: rgba(0,0,0,0.15); padding: 20px; margin-top: 9px; }
+  .price-box .field-label { margin-top: 18px; font-weight: 400; text-transform: none; letter-spacing: normal; font-size: 13px; color: rgba(247,241,227,0.7); }
+  .price-box .field-label:first-child { margin-top: 0; }
   .tier-row { display: flex; gap: 8px; margin-top: 8px; }
   .tier-row input:nth-child(2) { width: 120px; }
   .hidden { display: none; }
-  code { color: var(--gold-light); }
-  .muted { color: rgba(247,241,227,0.6); font-size: 14px; }
+  code { color: var(--gold-light); font-family: ui-monospace, monospace; }
+  .muted { color: rgba(247,241,227,0.55); font-size: 14px; }
+  .section-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
+  .field-row > div label.field-label { margin-top: 0; }
+  ::selection { background: rgba(212,175,55,0.3); }
 </style>
 </head>
 <body>
+<div class="glow" aria-hidden="true"></div>
 <div class="wrap" id="app"></div>
 <script>
 (function () {
@@ -315,10 +359,23 @@ export const ADMIN_HTML = `<!doctype html>
     return renderList();
   }
 
+  function formatPrice(price) {
+    price = price || {};
+    if (price.tiers && price.tiers.length > 0) {
+      var min = Math.min.apply(null, price.tiers.map(function (t) { return t.price; }));
+      return "od " + min + " zł";
+    }
+    if (typeof price.from === "number") return "od " + price.from + " zł";
+    return price.note || "Zapytaj o cenę";
+  }
+
   function renderTopbar(showLogout) {
     return (
       '<div class="topbar">' +
-      '<p class="eyebrow">Moc Atrakcji — panel admina</p>' +
+      '<div class="brand">' +
+      '<span class="brand-mark">M</span>' +
+      '<span class="brand-text"><b>MOC ATRAKCJI</b> — Panel Admina</span>' +
+      "</div>" +
       (showLogout ? '<button class="logout" id="logoutBtn">Wyloguj</button>' : "") +
       "</div>"
     );
@@ -335,12 +392,14 @@ export const ADMIN_HTML = `<!doctype html>
     app.innerHTML =
       renderTopbar(false) +
       '<div class="card login-card">' +
-      "<h1>Panel administracyjny</h1>" +
+      '<span class="eyebrow">Strefa prywatna</span>' +
+      '<h1 class="font-display">Panel administracyjny</h1>' +
+      '<p class="muted" style="margin-top:8px;">Zaloguj się, aby edytować ofertę.</p>' +
       '<label class="field-label">Login</label>' +
       '<input type="text" id="usernameInput" autofocus autocomplete="username" />' +
       '<label class="field-label">Hasło</label>' +
       '<input type="password" id="passwordInput" autocomplete="current-password" />' +
-      '<button class="btn-gold" id="loginBtn" style="margin-top:24px;width:100%;">Zaloguj</button>' +
+      '<button class="btn-gold" id="loginBtn" style="margin-top:28px;width:100%;">Zaloguj</button>' +
       renderStatus() +
       "</div>";
 
@@ -359,16 +418,27 @@ export const ADMIN_HTML = `<!doctype html>
     };
   }
 
+  function categoryTitle(slug) {
+    var c = CATEGORIES.find(function (c) { return c.slug === slug; });
+    return c ? c.title : slug;
+  }
+
   function renderList() {
     var offers = state.offers || [];
     var rows = offers
       .map(function (item) {
+        var thumb = item.image
+          ? '<img src="' + esc(item.image) + '" referrerpolicy="no-referrer" style="width:44px;height:44px;object-fit:cover;border:1px solid var(--border);flex-shrink:0;" />'
+          : '<span style="width:44px;height:44px;border:1px solid var(--border);flex-shrink:0;"></span>';
         return (
           '<div class="list-row">' +
+          '<div class="list-main">' +
+          thumb +
           '<div style="min-width:0;">' +
           '<p class="list-title">' + esc(item.title) + "</p>" +
-          '<p class="list-meta">' + esc(item.slug) + " · " + esc(item.category) + "</p>" +
-          "</div>" +
+          '<p class="list-meta">' + esc(categoryTitle(item.category)) + "</p>" +
+          "</div></div>" +
+          '<span class="price-tag">' + esc(formatPrice(item.price)) + "</span>" +
           '<div class="row-actions">' +
           '<button class="btn-small" data-edit="' + esc(item.slug) + '">Edytuj</button>' +
           '<button class="btn-danger" data-delete="' + esc(item.slug) + '">Usuń</button>' +
@@ -380,8 +450,8 @@ export const ADMIN_HTML = `<!doctype html>
     app.innerHTML =
       renderTopbar(true) +
       renderStatus() +
-      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">' +
-      "<h2>Oferty (" + offers.length + ")</h2>" +
+      '<div class="section-title">' +
+      '<div><span class="eyebrow">Zarządzanie ofertą</span><h2 class="font-display" style="margin-top:4px;">Oferty (' + offers.length + ")</h2></div>" +
       '<button class="btn-outline" id="newBtn">+ Nowa oferta</button>' +
       "</div>" +
       (state.offers === null ? '<p class="muted">Wczytywanie…</p>' : rows);
@@ -483,7 +553,8 @@ export const ADMIN_HTML = `<!doctype html>
       renderTopbar(true) +
       renderStatus() +
       '<div class="card">' +
-      "<h2>" + (state.isNew ? "Nowa oferta" : "Edycja: " + esc(d.title || d.slug)) + "</h2>" +
+      '<span class="eyebrow">' + (state.isNew ? "Nowa pozycja" : "Edycja oferty") + "</span>" +
+      '<h2 class="font-display" style="margin-top:6px;">' + (state.isNew ? "Nowa oferta" : esc(d.title || d.slug)) + "</h2>" +
 
       '<label class="field-label">Tytuł</label>' +
       '<input type="text" id="f_title" value="' + esc(d.title) + '" />' +
